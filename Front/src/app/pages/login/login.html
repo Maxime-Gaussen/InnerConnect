@@ -1,0 +1,55 @@
+<main class="page-wrapper">
+
+  <div class="logo-section">
+    <mat-icon class="logo-icon" aria-hidden="true">medical_services</mat-icon>
+  </div>
+
+  <h1 class="page-title">Connexion</h1>
+  <p class="page-subtitle">Bienvenue, connectez-vous à votre compte</p>
+
+  @if (error) {
+    <div class="form-error" role="alert">
+      <mat-icon aria-hidden="true">error_outline</mat-icon>
+      {{ error }}
+    </div>
+  }
+
+  <form class="login-form" [formGroup]="form" (ngSubmit)="submitForm()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" autocomplete="email" placeholder="johnnyhallydayforever@hotmail.com" />
+      @if (form.get('email')?.hasError('required')) {
+        <mat-error>L'email est requis</mat-error>
+      }
+      @if (form.get('email')?.hasError('email')) {
+        <mat-error>Format d'email invalide</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Mot de passe</mat-label>
+      <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" autocomplete="current-password" />
+      <button mat-icon-button matSuffix type="button"
+              [attr.aria-label]="hidePassword ? 'Afficher le mot de passe' : 'Masquer le mot de passe'"
+              (click)="hidePassword = !hidePassword">
+        <mat-icon aria-hidden="true">{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      @if (form.get('password')?.hasError('required')) {
+        <mat-error>Le mot de passe est requis</mat-error>
+      }
+      @if (form.get('password')?.hasError('minlength')) {
+        <mat-error>Minimum 8 caractères</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-flat-button class="btn-connexion" type="submit" [disabled]="form.invalid">
+        Connexion
+      </button>
+      <button mat-stroked-button class="btn-register" type="button" (click)="linkRegister()">
+        Inscrivez-vous
+      </button>
+    </div>
+  </form>
+
+</main>

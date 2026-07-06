@@ -1,0 +1,83 @@
+<div class="page-wrapper">
+  <h1 class="page-title">Vérification professionnelle</h1>
+
+  @if (!medecinInfo) {
+    <p class="page-subtitle">Entrez votre numéro d'identification national pour vérifier votre statut professionnel</p>
+
+    <form class="verif-form" [formGroup]="form" (ngSubmit)="verify()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Numéro d'identification national</mat-label>
+        <input matInput formControlName="idNat" />
+      </mat-form-field>
+
+      @if (errorMessage) {
+        <p class="error-message">{{ errorMessage }}</p>
+      }
+
+      <div class="actions">
+        <button mat-flat-button class="btn-confirmer" type="submit" [disabled]="form.invalid">
+          Confirmer
+        </button>
+        <button mat-stroked-button class="btn-retour" type="button" [routerLink]="['/profil']">
+          Retourner sur le profil
+        </button>
+      </div>
+    </form>
+  }
+
+  @if (medecinInfo) {
+    <div class="medecin-card">
+      <div class="medecin-row">
+        <span class="medecin-label">Nom</span>
+        <span class="medecin-value">{{ medecinInfo.nom }}</span>
+      </div>
+      <div class="medecin-row">
+        <span class="medecin-label">Prénom</span>
+        <span class="medecin-value">{{ medecinInfo.prenom }}</span>
+      </div>
+      <div class="medecin-row">
+        <span class="medecin-label">Profession</span>
+        <span class="medecin-value">{{ medecinInfo.profession }}</span>
+      </div>
+      <div class="medecin-row">
+        <span class="medecin-label">Spécialité</span>
+        <span class="medecin-value">{{ medecinInfo.specialite }}</span>
+      </div>
+    </div>
+
+    <p class="section-label">Informations du cabinet :</p>
+
+    <form class="verif-form" [formGroup]="cabinetForm" (ngSubmit)="register()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nom du cabinet</mat-label>
+        <input matInput formControlName="nom_cabinet" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Adresse</mat-label>
+        <input matInput formControlName="adresse" placeholder="ex : 12 rue de la Paix" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Ville</mat-label>
+        <input matInput formControlName="ville" placeholder="ex : Marseille" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Horaires du cabinet</mat-label>
+        <input matInput formControlName="horaire_cabinet" placeholder="ex : Lun-Ven 9h-18h" />
+      </mat-form-field>
+
+      <div class="actions">
+        <button mat-flat-button class="btn-confirmer" type="submit" [disabled]="cabinetForm.invalid">
+          Créer mon profil professionnel
+        </button>
+      </div>
+    </form>
+  }
+</div>

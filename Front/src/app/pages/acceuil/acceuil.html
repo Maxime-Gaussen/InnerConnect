@@ -1,0 +1,47 @@
+<main class="page-wrapper">
+
+  <div class="hero">
+    <div class="hero-illustration" aria-hidden="true">
+      <mat-icon class="hero-icon" aria-hidden="true">self_improvement</mat-icon>
+    </div>
+    <h1 class="hero-title">Trouvez votre praticien</h1>
+    <p class="hero-subtitle">Médecines douces & bien-être près de chez vous</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Les méthodologies</h2>
+
+    @if (error()) {
+      <div class="empty-state" role="alert">
+        <mat-icon aria-hidden="true">wifi_off</mat-icon>
+        <p>{{ error() }}</p>
+      </div>
+    } @else if (methodologies().length === 0) {
+      <div class="empty-state" role="status">
+        <mat-icon aria-hidden="true">search_off</mat-icon>
+        <p>Aucune méthodologie trouvée</p>
+      </div>
+    } @else {
+      <div class="methodo-grid" role="list">
+        @for (m of methodologies(); track m.id_methodologie) {
+          <div class="methodo-card"
+               role="listitem button"
+               tabindex="0"
+               [attr.aria-label]="'Voir les praticiens en ' + m.titre"
+               (click)="goToFicheTech(m.id_methodologie)"
+               (keydown.enter)="goToFicheTech(m.id_methodologie)"
+               (keydown.space)="goToFicheTech(m.id_methodologie)">
+            <div class="methodo-thumb" aria-hidden="true">
+              @if (m.img_presentation) {
+                <img [src]="m.img_presentation" [alt]="m.titre" loading="lazy" (error)="img.style.display='none'" #img />
+              }
+              <mat-icon class="thumb-fallback" aria-hidden="true">{{ iconFor(m.titre) }}</mat-icon>
+            </div>
+            <p class="methodo-name">{{ m.titre }}</p>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+</main>

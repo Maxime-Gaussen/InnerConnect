@@ -1,0 +1,13 @@
+# Pages publiques — autorisées à l'indexation
+Allow: /
+Allow: /fiche-tech
+
+# Pages privées — interdites à l'indexation
+Disallow: /login
+Disallow: /register
+Disallow: /profil
+Disallow: /profil-pro
+Disallow: /update
+Disallow: /verif-pro
+
+Sitemap: https://bigproject.fr/sitemap.xml

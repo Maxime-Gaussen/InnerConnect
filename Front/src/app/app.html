@@ -1,0 +1,14 @@
+
+<div class="page-content">
+  <router-outlet />
+</div>
+
+<nav mat-tab-nav-bar [tabPanel]="tabPanel">
+  <a mat-tab-link routerLink="/acceuil"><mat-icon class="example-tab-icon">home</mat-icon></a>
+  <a mat-tab-link [routerLink]="global.isLogged ? '/profil' : '/login'">
+    <mat-icon class="example-tab-icon">face</mat-icon>
+  </a>
+
+</nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+

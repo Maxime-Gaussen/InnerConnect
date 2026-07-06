@@ -1,0 +1,216 @@
+$purple-dark: #3b2a6e;
+$purple-mid: #4e3a8a;
+$green-accent: #4cde80;
+$white: #ffffff;
+$white-60: rgba(255, 255, 255, 0.6);
+$white-20: rgba(255, 255, 255, 0.2);
+$white-10: rgba(255, 255, 255, 0.1);
+
+:host {
+  display: block;
+  font-family: 'Roboto', sans-serif;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(160deg, #3b2a6e 0%, #5a3e9b 50%, #7b52c4 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 20px 40px;
+  box-sizing: border-box;
+}
+
+.stepper-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  max-width: 380px;
+  margin-bottom: 28px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+.step-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: $white-20;
+  border: 2px solid $white-60;
+  transition: all 0.3s ease;
+
+  &.active {
+    background: $green-accent;
+    border-color: $green-accent;
+    box-shadow: 0 0 8px rgba(76, 222, 128, 0.6);
+  }
+}
+
+.step-label {
+  font-size: 10px;
+  color: $white-60;
+  text-align: center;
+  white-space: nowrap;
+
+  .step.active & {
+    color: $green-accent;
+    font-weight: 500;
+  }
+}
+
+.step-line {
+  flex: 1;
+  height: 2px;
+  background: $white-20;
+  margin-top: 7px;
+  max-width: 48px;
+}
+
+.page-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: $white;
+  margin: 0 0 28px;
+  text-align: center;
+  letter-spacing: 0.3px;
+}
+
+.creation-form {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+::ng-deep {
+  .creation-form {
+    .mat-mdc-form-field {
+   
+      .mat-mdc-floating-label,
+      .mdc-floating-label {
+        color: $white !important;
+        font-weight: 500;
+      }
+
+      .mat-mdc-input-element,
+      input.mat-mdc-input-element,
+      .mat-mdc-select-value-text {
+        color: $white !important;
+      }
+
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing {
+        border-color: $white-20 !important;
+        background-color: $white-10;
+      }
+
+      &.mat-focused {
+        .mdc-notched-outline__leading,
+        .mdc-notched-outline__notch,
+        .mdc-notched-outline__trailing {
+          border-color: $green-accent !important;
+          border-width: 2px !important;
+        }
+
+        .mat-mdc-floating-label,
+        .mdc-floating-label {
+          color: $green-accent !important;
+        }
+      }
+
+      input::placeholder {
+        color: $white-60 !important;
+      }
+
+      .mat-mdc-icon-button {
+        color: $white-60;
+
+        &:hover {
+          color: $white;
+        }
+      }
+
+      .mat-mdc-form-field-error {
+        color: #ff8fab;
+      }
+
+      .mat-mdc-select-arrow {
+        color: $white-60;
+      }
+    }
+
+    .mat-mdc-select-panel {
+      background: $purple-mid;
+
+      .mat-mdc-option {
+        color: $white;
+
+        &:hover,
+        &.mat-mdc-option-active {
+          background: $white-10;
+        }
+      }
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.btn-suivant {
+  width: 100%;
+  height: 52px;
+  border-radius: 30px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.5px;
+  background-color: $green-accent !important;
+  color: #1a1a2e !important;
+  box-shadow: 0 4px 20px rgba(76, 222, 128, 0.4) !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(76, 222, 128, 0.55) !important;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    background-color: $green-accent !important;
+    color: #1a1a2e !important;
+  }
+}
+
+.btn-annuler {
+  width: 100%;
+  height: 52px;
+  border-radius: 30px !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  color: $white !important;
+  border-color: $white-20 !important;
+  background: transparent !important;
+  transition: background 0.15s ease !important;
+
+  &:hover {
+    background: $white-10 !important;
+  }
+}

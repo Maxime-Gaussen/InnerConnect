@@ -1,0 +1,197 @@
+<main class="page-wrapper">
+
+  @if (error()) {
+    <div class="form-error" role="alert">
+      <mat-icon aria-hidden="true">error_outline</mat-icon>
+      {{ error() }}
+    </div>
+  }
+
+  <div class="avatar-section">
+    <div class="avatar-circle" aria-hidden="true">
+      <mat-icon class="avatar-icon" aria-hidden="true">person</mat-icon>
+    </div>
+    <p class="avatar-name">{{ global.user.prenom }} {{ global.user.nom }}</p>
+    <span class="pro-badge">
+      <mat-icon class="badge-icon" aria-hidden="true">verified</mat-icon>
+      Professionnel
+    </span>
+  </div>
+
+  <h2 class="section-title">Informations personnelles</h2>
+  <div class="info-card">
+
+    <div class="info-row">
+      <div class="info-content">
+        <span class="info-label">Nom</span>
+        <span class="info-value">{{ global.user.nom }}</span>
+      </div>
+      <button mat-icon-button class="edit-btn" [routerLink]="['/update/:nom']">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+
+    <div class="info-divider"></div>
+
+    <div class="info-row">
+      <div class="info-content">
+        <span class="info-label">Prénom</span>
+        <span class="info-value">{{ global.user.prenom }}</span>
+      </div>
+      <button mat-icon-button class="edit-btn" [routerLink]="['/update/:prenom']">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+
+    <div class="info-divider"></div>
+
+    <div class="info-row">
+      <div class="info-content">
+        <span class="info-label">Âge</span>
+        <span class="info-value">{{ global.user.age }} ans</span>
+      </div>
+      <button mat-icon-button class="edit-btn" [routerLink]="['/update/:age']">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+
+    <div class="info-divider"></div>
+
+    <div class="info-row">
+      <div class="info-content">
+        <span class="info-label">Email</span>
+        <span class="info-value">{{ global.user.email }}</span>
+      </div>
+      <button mat-icon-button class="edit-btn" [routerLink]="['/update/:email']">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+
+    <div class="info-divider"></div>
+
+    <div class="info-row">
+      <div class="info-content">
+        <span class="info-label">Mot de passe</span>
+        <span class="info-value">••••••••</span>
+      </div>
+      <button mat-icon-button class="edit-btn" [routerLink]="['/update/:password']">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+
+  </div>
+
+  <h2 class="section-title">Informations professionnelles</h2>
+  <div class="info-card" role="region" aria-label="Informations professionnelles">
+
+    <div class="info-row">
+      <div class="info-content">
+        <span class="info-label">Nom du cabinet</span>
+        <span class="info-value">{{ global.pro?.nom_cabinet || '—' }}</span>
+      </div>
+      <button mat-icon-button class="edit-btn" aria-label="Modifier le nom du cabinet" [routerLink]="['/update/:nom_cabinet']">
+        <mat-icon aria-hidden="true">edit</mat-icon>
+      </button>
+    </div>
+
+    <div class="info-divider" role="separator"></div>
+
+    <div class="info-row">
+      <div class="info-content">
+        <span class="info-label">Adresse</span>
+        <span class="info-value">{{ global.pro?.adresse || '—' }}</span>
+      </div>
+      <button mat-icon-button class="edit-btn" aria-label="Modifier l'adresse" [routerLink]="['/update/:adresse']">
+        <mat-icon aria-hidden="true">edit</mat-icon>
+      </button>
+    </div>
+
+    <div class="info-divider" role="separator"></div>
+
+    <div class="info-row">
+      <div class="info-content">
+        <span class="info-label">Ville</span>
+        <span class="info-value">{{ global.pro?.ville || '—' }}</span>
+      </div>
+      <button mat-icon-button class="edit-btn" aria-label="Modifier la ville" [routerLink]="['/update/:ville']">
+        <mat-icon aria-hidden="true">edit</mat-icon>
+      </button>
+    </div>
+
+    <div class="info-divider" role="separator"></div>
+
+    <div class="info-row">
+      <div class="info-content">
+        <span class="info-label">Description</span>
+        <span class="info-value">{{ global.pro?.description || '—' }}</span>
+      </div>
+      <button mat-icon-button class="edit-btn" aria-label="Modifier la description" [routerLink]="['/update/:description']">
+        <mat-icon aria-hidden="true">edit</mat-icon>
+      </button>
+    </div>
+
+    <div class="info-divider" role="separator"></div>
+
+    <div class="info-row">
+      <div class="info-content">
+        <span class="info-label">Horaires</span>
+        <span class="info-value">{{ global.pro?.horaire_cabinet || '—' }}</span>
+      </div>
+      <button mat-icon-button class="edit-btn" aria-label="Modifier les horaires" [routerLink]="['/update/:horaire_cabinet']">
+        <mat-icon aria-hidden="true">edit</mat-icon>
+      </button>
+    </div>
+
+  </div>
+
+  <h2 class="section-title">Méthodologies pratiquées</h2>
+  <div class="info-card" role="region" aria-label="Méthodologies pratiquées">
+
+    @if (methodos().length === 0) {
+      <div class="info-row">
+        <span class="info-value empty-text">Aucune méthodologie ajoutée</span>
+      </div>
+    }
+
+   
+    @for (m of methodos(); track m.id_methodologie; let last = $last) {
+      <div class="info-row">
+        <div class="info-content">
+          <span class="info-value">{{ methodoTitle(m.id_methodologie) }}</span>
+        </div>
+        <button mat-icon-button class="edit-btn delete-btn"
+                [attr.aria-label]="'Supprimer ' + methodoTitle(m.id_methodologie)"
+                (click)="removeMethodo(m.id_methodologie)">
+          <mat-icon aria-hidden="true">close</mat-icon>
+        </button>
+      </div>
+      @if (!last) {
+        <div class="info-divider" role="separator"></div>
+      }
+    }
+
+  </div>
+
+  @if (availableMethodos().length > 0) {
+    <div class="add-methodo-row">
+      <mat-form-field appearance="outline" class="methodo-select">
+        <mat-label>Ajouter une méthodologie</mat-label>
+        <mat-select [value]="selectedMethodoId" (selectionChange)="selectedMethodoId = $event.value" aria-label="Sélectionner une méthodologie à ajouter">
+          @for (m of availableMethodos(); track m.id_methodologie) {
+            <mat-option [value]="m.id_methodologie">{{ m.titre }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <button mat-flat-button class="btn-add" (click)="addMethodo()" [disabled]="!selectedMethodoId">
+        <mat-icon aria-hidden="true">add</mat-icon>
+        Ajouter
+      </button>
+    </div>
+  }
+
+  <button mat-stroked-button class="btn-logout" (click)="global.logout()">
+    <mat-icon aria-hidden="true">logout</mat-icon>
+    Se déconnecter
+  </button>
+
+</main>

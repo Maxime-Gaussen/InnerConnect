@@ -1,0 +1,71 @@
+<main class="page-wrapper">
+
+  <h1 class="page-title">Création de compte</h1>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="creation-form" novalidate>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nom</mat-label>
+      <input matInput formControlName="nom" autocomplete="family-name" placeholder="Dupont" />
+      @if (form.get('nom')?.hasError('required')) {
+        <mat-error>Le nom est requis</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Prénom</mat-label>
+      <input matInput formControlName="prenom" autocomplete="given-name" placeholder="Jean" />
+      @if (form.get('prenom')?.hasError('required')) {
+        <mat-error>Le prénom est requis</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Âge</mat-label>
+      <input matInput type="number" formControlName="age" autocomplete="off" placeholder="18" />
+      @if (form.get('age')?.hasError('required')) {
+        <mat-error>L'âge est requis</mat-error>
+      }
+      @if (form.get('age')?.hasError('min') || form.get('age')?.hasError('max')) {
+        <mat-error>L'âge doit être entre 1 et 120</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" autocomplete="email" placeholder="exemple@email.com" />
+      @if (form.get('email')?.hasError('required')) {
+        <mat-error>L'email est requis</mat-error>
+      }
+      @if (form.get('email')?.hasError('email')) {
+        <mat-error>Format d'email invalide</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Mot de passe</mat-label>
+      <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" autocomplete="new-password" />
+      <button mat-icon-button matSuffix type="button"
+              [attr.aria-label]="hidePassword ? 'Afficher le mot de passe' : 'Masquer le mot de passe'"
+              (click)="hidePassword = !hidePassword">
+        <mat-icon aria-hidden="true">{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      @if (form.get('password')?.hasError('required')) {
+        <mat-error>Le mot de passe est requis</mat-error>
+      }
+      @if (form.get('password')?.hasError('minlength')) {
+        <mat-error>Minimum 8 caractères</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-flat-button type="submit" class="btn-suivant" [disabled]="form.invalid">
+        Créer mon compte
+      </button>
+      <button mat-stroked-button type="button" routerLink="/login">
+        Déjà un compte
+      </button>
+    </div>
+
+  </form>
+</main>

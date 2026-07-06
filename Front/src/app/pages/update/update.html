@@ -1,0 +1,61 @@
+<div class="page-wrapper">
+
+  <div class="page-header">
+    <button mat-icon-button class="back-btn" [routerLink]="['/profil']">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1 class="page-title">Modifier {{ update()?.update }}</h1>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onUpdate()" class="update-form" novalidate>
+
+    @if (update().update == 'age') {
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Âge</mat-label>
+        <input matInput type="number" formControlName="update" placeholder="18" />
+        @if (form.get('update')?.hasError('required')) {
+          <mat-error>L'âge est requis</mat-error>
+        }
+      </mat-form-field>
+    } @else if (update().update == 'email') {
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="update" placeholder="exemple@email.com" />
+        @if (form.get('update')?.hasError('required')) {
+          <mat-error>L'email est requis</mat-error>
+        }
+        @if (form.get('update')?.hasError('email')) {
+          <mat-error>Format d'email invalide</mat-error>
+        }
+      </mat-form-field>
+    } @else if (update().update == 'password') {
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Mot de passe</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="update" />
+        <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        @if (form.get('update')?.hasError('required')) {
+          <mat-error>Le mot de passe est requis</mat-error>
+        }
+        @if (form.get('update')?.hasError('minlength')) {
+          <mat-error>Minimum 8 caractères</mat-error>
+        }
+      </mat-form-field>
+    } @else {
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nouvelle valeur</mat-label>
+        <input matInput formControlName="update" />
+        @if (form.get('update')?.hasError('required')) {
+          <mat-error>Une valeur est requise</mat-error>
+        }
+      </mat-form-field>
+    }
+
+    <button mat-flat-button type="submit" class="btn-confirm" [disabled]="form.invalid">
+      Confirmer
+    </button>
+
+  </form>
+
+</div>

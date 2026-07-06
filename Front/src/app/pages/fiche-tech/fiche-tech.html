@@ -1,0 +1,79 @@
+<main class="page-wrapper">
+
+  @if (error()) {
+    <div class="empty-state" role="alert">
+      <mat-icon aria-hidden="true">wifi_off</mat-icon>
+      <p>{{ error() }}</p>
+    </div>
+  }
+
+  @if (methodo()) {
+    <div class="methodo-header">
+      <h1 class="page-title">{{ methodo().titre }}</h1>
+      <p class="page-subtitle">{{ methodo().descriptif }}</p>
+    </div>
+  }
+
+  <div class="search-section">
+    <p class="section-label">Filtrer par ville :</p>
+
+    <form class="search-form" (ngSubmit)="search()">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Ville</mat-label>
+        <input matInput [(ngModel)]="ville" name="ville" placeholder="ex : Paris, Lyon..." />
+        <mat-icon matSuffix>location_on</mat-icon>
+      </mat-form-field>
+
+      <button mat-flat-button class="btn-search" type="submit" [disabled]="searching">
+        @if (searching) { Recherche... } @else { Rechercher }
+      </button>
+    </form>
+  </div>
+
+  <div class="results-section">
+    @if (pros().length === 0) {
+      <div class="no-results">
+        <mat-icon class="no-results-icon">person_search</mat-icon>
+        <p>Aucun professionnel trouvé{{ ville ? ' à ' + ville : '' }} pour cette pratique.</p>
+      </div>
+    } @else {
+      <p class="results-count">
+        {{ pros().length }} professionnel{{ pros().length > 1 ? 's' : '' }}
+        {{ ville ? ' à ' + ville : '' }}
+      </p>
+
+      <div class="pros-list">
+        @for (pro of pros(); track pro.id_pro) {
+          <div class="pro-card">
+            <div class="pro-card-header">
+              <mat-icon class="pro-icon">person</mat-icon>
+              <div>
+                <p class="pro-name">{{ pro.prenom }} {{ pro.nom }}</p>
+                <p class="pro-cabinet">{{ pro.nom_cabinet }}</p>
+              </div>
+            </div>
+
+            <div class="pro-card-body">
+              @if (pro.adresse || pro.ville) {
+                <div class="pro-info-row">
+                  <mat-icon class="info-icon">location_on</mat-icon>
+                  <span>{{ pro.adresse }}{{ pro.adresse && pro.ville ? ', ' : '' }}{{ pro.ville }}</span>
+                </div>
+              }
+              @if (pro.horaire_cabinet) {
+                <div class="pro-info-row">
+                  <mat-icon class="info-icon">schedule</mat-icon>
+                  <span>{{ pro.horaire_cabinet }}</span>
+                </div>
+              }
+              @if (pro.description) {
+                <p class="pro-description">{{ pro.description }}</p>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+</main>
